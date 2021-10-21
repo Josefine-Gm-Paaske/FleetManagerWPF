@@ -1,6 +1,7 @@
 ﻿using FleetManager.Desktop.Data;
 using FleetManager.Desktop.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RestSharp;
 using System;
 
 namespace FleetManager.Desktop.DataTests
@@ -41,8 +42,10 @@ namespace FleetManager.Desktop.DataTests
         public void CreateCarDaoForRESTDataContextTest()
         {
             // TODO: test that a IDao<Car> implementation for REST is returned from the factory (solve exercise )
+            IDataContext<IRestClient> dataContext = RestDataContext.Instance;
 
-            Assert.Inconclusive();
+            IDao<Car> carDao = DaoFactory.Create<Car>(dataContext);
+            Assert.IsNotNull(carDao);
         }
 
         [TestMethod]
