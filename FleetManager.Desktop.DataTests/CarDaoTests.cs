@@ -17,7 +17,7 @@ namespace FleetManager.Desktop.DataTests
             // TODO: (Step 5) You should change this to instantiate another datacontext
             // to test integration with other datasources, but DO NOT change the
             // tests!
-            _dataContext = new TestDataContext();
+            _dataContext = RestDataContext.Instance;
         }
 
         [TestMethod]
