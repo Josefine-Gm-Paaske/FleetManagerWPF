@@ -1,4 +1,5 @@
-﻿using FleetManager.Desktop.Model;
+﻿using FleetManager.Desktop.Data.Daos.REST.Model;
+using FleetManager.Desktop.Model;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -33,16 +34,26 @@ namespace FleetManager.Desktop.Data.Daos.REST
         {
             IRestClient client = DataContext.Open();
             IRestRequest request = new RestRequest("/api/Cars", Method.GET);
-            IRestResponse<IEnumerable<Car>> response = client.Get<IEnumerable<Car>>(request);
-            return response.Data;
+            IRestResponse<IEnumerable<CarDto>> response = client.Get<IEnumerable<CarDto>>(request);
+            List<Car> result = new();
+            foreach (CarDto car in response.Data)
+            {
+                result.Add(car.Map());
+            }
+            return result;
         }
 
         public IEnumerable<Car> Read(Func<Car, bool> predicate)
         {
             IRestClient client = DataContext.Open();
             IRestRequest request = new RestRequest("/api/Cars", Method.GET);
-            IRestResponse<IEnumerable<Car>> response = client.Get<IEnumerable<Car>>(request);
-            return response.Data.Where(predicate);
+            IRestResponse<IEnumerable<CarDto>> response = client.Get<IEnumerable<CarDto>>(request);
+            List<Car> result = new();
+            foreach (CarDto car in response.Data)
+            {
+                result.Add(car.Map());
+            }
+            return result.Where(predicate);
         }
 
         public bool Update(Car model)
