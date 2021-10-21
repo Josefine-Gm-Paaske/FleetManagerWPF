@@ -1,4 +1,5 @@
 ﻿using FleetManager.Desktop.Model;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,6 @@ namespace FleetManager.Desktop.Data
     {
         IEnumerable<Car> Cars { get; }
         IEnumerable<Location> Locations { get; }
-
         Car Add(Car car);
         Location Add(Location location);
 
