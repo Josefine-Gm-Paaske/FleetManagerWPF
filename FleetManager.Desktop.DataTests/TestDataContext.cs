@@ -16,6 +16,7 @@ namespace FleetManager.Desktop.DataTests
         public TestDataContext()
         {
             _cars = new List<Car>()
+            //Memory data
          {
              new Car() { Id = 1, Brand = "Ford", Mileage = 12398, Location = new Location(){ Id = 1, Name = "Aalborg" } },
              new Car() { Id = 2, Brand = "Skoda", Mileage = 5466, Location = new Location(){ Id = 2, Name = "Randers" } },
