@@ -1,4 +1,5 @@
-﻿using FleetManager.Desktop.Model;
+﻿using FleetManager.Desktop.Data.Daos.REST.Model;
+using FleetManager.Desktop.Model;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -33,16 +34,26 @@ namespace FleetManager.Desktop.Data.Daos.REST
         {
             IRestClient client = DataContext.Open();
             IRestRequest request = new RestRequest("/api/Locations", Method.GET);
-            IRestResponse<IEnumerable<Location>> response = client.Get<IEnumerable<Location>>(request);
-            return response.Data;
+            IRestResponse<IEnumerable<LocationDto>> response = client.Get<IEnumerable<LocationDto>>(request);
+            List<Location> result = new();
+            foreach (LocationDto location in response.Data)
+            {
+                result.Add(location.Map());
+            }
+            return result;
         }
 
         public IEnumerable<Location> Read(Func<Location, bool> predicate)
         {
             IRestClient client = DataContext.Open();
             IRestRequest request = new RestRequest("/api/Locations", Method.GET);
-            IRestResponse<IEnumerable<Location>> response = client.Get<IEnumerable<Location>>(request);
-            return response.Data.Where(predicate);
+            IRestResponse<IEnumerable<LocationDto>> response = client.Get<IEnumerable<LocationDto>>(request);
+            List<Location> result = new();
+            foreach (LocationDto location in response.Data)
+            {
+                result.Add(location.Map());
+            }
+            return result.Where(predicate);
         }
 
         public bool Update(Location model)
