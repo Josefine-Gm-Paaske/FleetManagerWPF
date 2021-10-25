@@ -22,12 +22,25 @@ namespace FleetManager.Desktop.Data.Daos.REST
 
         public Car Create(Car model)
         {
-            throw new NotImplementedException();
+            IRestClient client = DataContext.Open();
+            
+            IRestRequest request = new RestRequest("/api/Cars", Method.POST);
+            request.AddParameter("Brand", model.Brand);
+            request.AddParameter("Mileage", model.Mileage);
+
+            IRestResponse<IEnumerable<CarDto>> response = client.Post<IEnumerable<CarDto>>(request);
+            
+            return model;
         }
 
         public bool Delete(Car model)
         {
-            throw new NotImplementedException();
+            IRestClient client = DataContext.Open();
+            IRestRequest request = new RestRequest("/api/Cars/{id}", Method.DELETE);
+            request.AddUrlSegment("id", model.Id);
+            IRestResponse<IEnumerable<CarDto>> response = client.Post<IEnumerable<CarDto>>(request);
+
+            return false;
         }
 
         public IEnumerable<Car> Read()
@@ -58,7 +71,11 @@ namespace FleetManager.Desktop.Data.Daos.REST
 
         public bool Update(Car model)
         {
-            throw new NotImplementedException();
+            IRestClient client = DataContext.Open();
+            IRestRequest request = new RestRequest("/api/Cars/{id}", Method.PUT);
+            request.AddUrlSegment("id", model.Id);
+            client.Put<Car>(request);
+            return true;
         }
     }
 }
