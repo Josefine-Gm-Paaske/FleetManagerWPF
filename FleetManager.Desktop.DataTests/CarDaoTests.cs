@@ -69,7 +69,7 @@ namespace FleetManager.Desktop.DataTests
 
             // Assert
             Assert.IsNotNull(test);
-            Assert.AreEqual(17, test.Id);
+            Assert.AreEqual(null, test.Id);
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace FleetManager.Desktop.DataTests
         {
             //  Arrange
             IDao<Car> dao = DaoFactory.Create<Car>(_dataContext);
-            Car car = new() { Id = 1, Brand = "Ford", Mileage = 45000 };
+            Car car = new() { Id = 5, Brand = "Audi Q8", Mileage = 45 };
 
             // Act
             bool test = dao.Update(car);
@@ -91,7 +91,7 @@ namespace FleetManager.Desktop.DataTests
         {
             //  Arrange
             IDao<Car> dao = DaoFactory.Create<Car>(_dataContext);
-            Car car = new() { Id = 22, Brand = "Ford", Mileage = 45000 };
+            Car car = new() { Id = 5, Brand = "Audi Q6", Mileage = 450 };
 
             // Act
             bool test = dao.Update(car);

@@ -26,7 +26,7 @@ namespace FleetManager.Desktop.Data
                 return typeof(TModel) switch
                 {
                     var dao when dao == typeof(Car) => new Daos.REST.CarDao(dataContext as IDataContext<IRestClient>) as IDao<TModel>,
-                    var dao when dao == typeof(Location) => new REST.Memory.LocationDao(dataContext as IDataContext<IRestClient>) as IDao<TModel>,
+                    var dao when dao == typeof(Location) => new Daos.REST.LocationDao(dataContext as IDataContext<IRestClient>) as IDao<TModel>,
                     _ => throw new DaoFactoryException($"Model [{typeof(TModel).Name}] not supported"),
                 };
             }

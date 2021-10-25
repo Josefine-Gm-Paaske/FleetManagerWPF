@@ -22,12 +22,26 @@ namespace FleetManager.Desktop.Data.Daos.REST
 
         public Location Create(Location model)
         {
-            throw new NotImplementedException();
+            IRestClient client = DataContext.Open();
+            
+            IRestRequest request = new RestRequest("/api/Locations", Method.POST);
+            request.AddParameter("Name", model.Name);
+            
+            IRestResponse<IEnumerable<LocationDto>> response = client.Post<IEnumerable<LocationDto>>(request);
+            
+            return model;
         }
 
         public bool Delete(Location model)
         {
-            throw new NotImplementedException();
+            IRestClient client = DataContext.Open();
+            IRestRequest request = new RestRequest("/api/Locations/{id}", Method.DELETE);
+            request.AddUrlSegment("id", model.Id);
+
+            //IRestResponse response = client.Delete(request);
+            IRestResponse<IEnumerable<LocationDto>> response = client.Delete<IEnumerable<LocationDto>>(request);
+
+            return false;
         }
 
         public IEnumerable<Location> Read()
